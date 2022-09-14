@@ -9,8 +9,8 @@ class handleColour(Resource):
     def get(self,colour):
         item = self.findByName(colour)
         if item:
-            return item
-        return {'message' : "Laptop with colour '{}' not found".format(colour)}
+            return item,200
+        return {'message' : "Laptop with colour '{}' not found".format(colour)},404
     @classmethod
     def findByName(cls,colour):
         connection = sqlite3.connect('data.db')
@@ -25,12 +25,12 @@ class handleColour(Resource):
     def post(self,colour):
         item = {'laptop': colour}
         if self.findByName(colour):
-           return {'message': "Laptop with colour '{}' already exists.".format(colour)}
+           return {'message': "Laptop with colour '{}' already exists.".format(colour)},200
         try:
             handleColour.insert(colour)
         except:
-            return {"message" : "An error occurred inserting the colour for laptop."}
-        return item
+            return {"message" : "An error occurred inserting the colour for laptop."},404
+        return item,201
 
     @classmethod
     def insert(cls,colour):
@@ -66,8 +66,8 @@ class handleMemory(Resource):
     def get(self,memory):
         item = self.findByName(memory)
         if item:
-            return item
-        return {'message' : "Laptop with memory '{}' not found".format(memory)}
+            return item,200
+        return {'message' : "Laptop with memory '{}' not found".format(memory)},404
     @classmethod
     def findByName(cls,memory):
         connection = sqlite3.connect('data.db')
@@ -84,12 +84,12 @@ class handleMemory(Resource):
     def post(self,memory):
         item = {'laptop': memory}
         if self.findByName(memory):
-           return {'message': "Laptop with memory '{}' already exists.".format(memory)}
+           return {'message': "Laptop with memory '{}' already exists.".format(memory)},200
         try:
             handleMemory.insert(memory)
         except:
-            return {"message" : "An error occurred inserting the memory for laptop."}
-        return item
+            return {"message" : "An error occurred inserting the memory for laptop."},404
+        return item,201
 
     @classmethod
     def insert(cls,memory):
